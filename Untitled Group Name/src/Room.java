@@ -12,9 +12,9 @@ public class Room {
     private int startDate;
     private int endDate;
     private ArrayList<RoomService> orders;
-    private int numFlags;
     private int numOrders;
-    //private ArrayList<Flag> flags;
+    private boolean checkedIn;
+    private boolean needsCleaning;
 
     private void reset() {
         numGuests = 0;
@@ -23,31 +23,48 @@ public class Room {
         address = null;
         startDate = 0;
         endDate = 0;
-        orders = null;
-        numFlags = 0;
         numOrders = 0;
+        checkedIn = false;
     }
 
     /**
      * Default constructor for the Room class.
      */
     public Room() {
+        orders = new ArrayList<RoomService>();
+        needsCleaning = false;
         reset();
     }
 
     /**
-     *
-     * @return
+     * Sets the room as checked-in.
+     * If it's already checked-in, returns false.
      */
     public boolean checkIn() {
-        //add check-in flag
-        return true;
+        if (checkedIn) {
+            return false;
+        }
+        else {
+            checkedIn = true;
+            return true;
+        }
     }
 
+    /**
+     * Sets a room as checked-out & needing cleaning.
+     * If the rooms is already checked-out, return false.
+     */
     public boolean checkOut() {
-        //if checked-in then reset room
-        return true;
-        //else return false
+        if (checkedIn) {
+            needsCleaning = true;
+            orders.clear();
+            reset();
+            return true;
+        }
+        else {
+
+            return false;
+        }
     }
 
     /**
@@ -146,14 +163,6 @@ public class Room {
         this.orders = orders;
     }
 
-    public int getNumFlags() {
-        return numFlags;
-    }
-
-    public void setNumFlags(int numFlags) {
-        this.numFlags = numFlags;
-    }
-
     public int getNumOrders() {
         return numOrders;
     }
@@ -161,4 +170,17 @@ public class Room {
     public void setNumOrders(int numOrders) {
         this.numOrders = numOrders;
     }
+
+    public boolean isCheckedIn() {
+        return checkedIn;
+    }
+
+    public boolean needsCleaning() {
+        return needsCleaning;
+    }
+
+    public void setNeedsCleaning(boolean needsCleaning) {
+        this.needsCleaning = needsCleaning;
+    }
+
 }
