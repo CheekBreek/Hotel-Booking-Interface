@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 /**
  * A class representing a hotel room.
  *
@@ -7,10 +6,10 @@ import java.util.ArrayList;
 public class Room {
     private int numGuests;
     private String name;
-    private int birthDate;
+    private Date birthDate;
     private String address;
-    private int startDate;
-    private int endDate;
+    private Date startDate;
+    private Date endDate;
     private ArrayList<RoomService> orders;
     private int numOrders;
     private boolean checkedIn;
@@ -19,10 +18,10 @@ public class Room {
     private void reset() {
         numGuests = 0;
         name = null;
-        birthDate = 0;
+        birthDate = null;
         address = null;
-        startDate = 0;
-        endDate = 0;
+        startDate = null;
+        endDate = null;
         numOrders = 0;
         checkedIn = false;
     }
@@ -123,11 +122,11 @@ public class Room {
         this.name = name;
     }
 
-    public int getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(int birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -139,19 +138,20 @@ public class Room {
         this.address = address;
     }
 
-    public int getStartDate() {
+
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(int startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public int getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(int endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
