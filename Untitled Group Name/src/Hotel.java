@@ -10,10 +10,10 @@ public class Hotel {
 	private ArrayList <Announcement> announcements;
 	private ArrayList <Room> rooms; 
 	private ArrayList <Facility> facilities;
-	private String hotelFile = "HotelFile";
+
 	
 	public Hotel () throws Exception{
-
+			String hotelFile = "HotelFile";
 			File Input = new File(hotelFile);
 			Scanner readIn = new Scanner (Input);
 
@@ -36,6 +36,16 @@ public class Hotel {
 				Room init = new Room();
 				rooms.add(init);
 			}
+			
+			String facilityFile = "FacilityFile";
+			Input = new File(facilityFile);
+			readIn = new Scanner (Input);
+			
+			while (readIn.hasNextLine()) {
+				Facility addFacility = new Facility(readIn.nextLine(),readIn.nextLine(), readIn.nextLine());
+				facilities.add(addFacility);
+			}
+			readIn.close();
 	}
 	
 	public void addAnnouncement (String announcement, String date) {
