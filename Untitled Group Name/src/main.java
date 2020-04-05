@@ -3,7 +3,10 @@ public class main
 {
     public static void main(String args[])
     {
-        System.out.println("Hello");
-
+    	try {
+        Hotel hotel = new Hotel();
+    	} catch (Exception input) {
+    		System.out.println(input.getMessage());
+        }
     }
 }
