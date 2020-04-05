@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * A class representing a booked hotel room.
+ * A class representing a hotel room.
  *
  */
 public class Room {
@@ -9,7 +9,7 @@ public class Room {
     private String name;
     private int birthDate;
     private String address;
-    private final int startDate;
+    private int startDate;
     private int endDate;
     private ArrayList<RoomService> orders;
     //private RoomService[] orders = null;
@@ -20,20 +20,18 @@ public class Room {
     //private ArrayList<Flag> flags;
 
     /**
-     * Constructor for the Room class.
-     * The number of guests in the room, one of the guest's personal information (name, date of birth, address),
-     * and the start & end date of the booking must be passed in.
+     * Default constructor for the Room class.
      */
-    public Room(int numGuests, String name, int birthDate, String address, int startDate, int endDate) {
-        super();
-        this.numGuests = numGuests;
-        this.name = name;
-        this.birthDate = birthDate;
-        this.address = address;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        orders = new ArrayList<RoomService>();
-        //flags = new ArrayList<Flag>();
+    public Room() {
+        numGuests = 0;
+        name = null;
+        birthDate = 0;
+        address = null;
+        startDate = 0;
+        endDate = 0;
+        orders = null;
+        numFlags = 0;
+        numOrders = 0;
     }
 
     /**
@@ -87,12 +85,12 @@ public class Room {
         //output reservation info
     }
 
-    public int getCapacity() {
+    public int getNumGuests() {
         return numGuests;
     }
 
-    public void setCapacity(int capacity) {
-        this.numGuests = capacity;
+    public void setNumGuests(int numGuests) {
+        this.numGuests = numGuests;
     }
 
     public String getName() {
@@ -123,6 +121,10 @@ public class Room {
         return startDate;
     }
 
+    public void setStartDate(int startDate) {
+        this.startDate = startDate;
+    }
+
     public int getEndDate() {
         return endDate;
     }
@@ -135,12 +137,8 @@ public class Room {
         return orders;
     }
 
-    public int getMaxFlags() {
-        return maxFlags;
-    }
-
-    public int getMaxOrders() {
-        return maxOrders;
+    public void setOrders(ArrayList<RoomService> orders) {
+        this.orders = orders;
     }
 
     public int getNumFlags() {
@@ -159,5 +157,11 @@ public class Room {
         this.numOrders = numOrders;
     }
 
+    public int getMaxFlags() {
+        return maxFlags;
+    }
 
+    public int getMaxOrders() {
+        return maxOrders;
+    }
 }
