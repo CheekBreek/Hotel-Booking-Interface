@@ -12,17 +12,11 @@ public class Room {
     private int startDate;
     private int endDate;
     private ArrayList<RoomService> orders;
-    //private RoomService[] orders = null;
-    private final int maxFlags = 10; //max can change, temporary
-    private final int maxOrders = 10;
     private int numFlags;
     private int numOrders;
     //private ArrayList<Flag> flags;
 
-    /**
-     * Default constructor for the Room class.
-     */
-    public Room() {
+    private void reset() {
         numGuests = 0;
         name = null;
         birthDate = 0;
@@ -35,6 +29,13 @@ public class Room {
     }
 
     /**
+     * Default constructor for the Room class.
+     */
+    public Room() {
+        reset();
+    }
+
+    /**
      *
      * @return
      */
@@ -44,8 +45,9 @@ public class Room {
     }
 
     public boolean checkOut() {
-        //remove check-in flag
+        //if checked-in then reset room
         return true;
+        //else return false
     }
 
     /**
@@ -77,6 +79,9 @@ public class Room {
         }
     }
 
+    /**
+     *
+     */
     public void makeRestaurantReservation(String date, String time) {
         //set reservation
     }
@@ -155,13 +160,5 @@ public class Room {
 
     public void setNumOrders(int numOrders) {
         this.numOrders = numOrders;
-    }
-
-    public int getMaxFlags() {
-        return maxFlags;
-    }
-
-    public int getMaxOrders() {
-        return maxOrders;
     }
 }
