@@ -7,8 +7,8 @@ public class Hotel {
 	
 	private String name; 
 	private String description;
-	private ArrayList <Announcement> Announcements;
-	private ArrayList <Room> Rooms; 
+	private ArrayList <Announcement> announcements;
+	private ArrayList <Room> rooms; 
 	private String hotelFile = "HotelFile";
 	
 	public Hotel () throws Exception{
@@ -30,5 +30,14 @@ public class Hotel {
 			}
 			
 			readIn.close();
+	}
+	
+	public void addAnnouncement (String announcement, String date) {
+		
+		Announcement newAnnounce = new Announcement(announcement, date);
+		announcements.add(newAnnounce);		
+	}
+	public void removeAnnouncement (int index) {
+		announcements.remove(index);
 	}
 }
