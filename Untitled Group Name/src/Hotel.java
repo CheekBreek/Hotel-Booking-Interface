@@ -9,6 +9,7 @@ public class Hotel {
 	private String description;
 	private ArrayList <Announcement> announcements;
 	private ArrayList <Room> rooms; 
+	private ArrayList <Facility> facilities;
 	private String hotelFile = "HotelFile";
 	
 	public Hotel () throws Exception{
