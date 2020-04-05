@@ -30,6 +30,11 @@ public class Hotel {
 			}
 			
 			readIn.close();
+			
+			for (int num = 20; num > 0; num--) {
+				Room init = new Room();
+				rooms.add(init);
+			}
 	}
 	
 	public void addAnnouncement (String announcement, String date) {
@@ -39,5 +44,15 @@ public class Hotel {
 	}
 	public void removeAnnouncement (int index) {
 		announcements.remove(index);
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public String getDescrition() {
+		return description;
+	}
+	public Room getRoom(int index) {
+		return rooms.get(index);
 	}
 }

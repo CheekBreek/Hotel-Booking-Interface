@@ -7,4 +7,11 @@ public class Announcement {
 		announcement = Announcement;
 		date = Date;
 	}
+	public String getAnnounce () {
+		return announcement;
+	}
+	public String getDate () {
+		return date;
+	}
+	
 }
