@@ -1,3 +1,5 @@
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 public class main
 {
@@ -8,5 +10,15 @@ public class main
     	} catch (Exception input) {
     		System.out.println(input.getMessage());
         }
+        
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                UIManager.put("swing.boldMetal", Boolean.FALSE);
+                GUI.createAndShowGUI();
+            }
+        });
     }
 }
