@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+
 /**
  * A class representing a hotel room.
  *
  */
 public class Room {
+    private int roomNum;
+    private int capacity;
     private int numGuests;
     private String name;
     private Date birthDate;
@@ -11,9 +14,9 @@ public class Room {
     private Date startDate;
     private Date endDate;
     private ArrayList<RoomService> orders;
-    private int numOrders;
     private boolean checkedIn;
     private boolean needsCleaning;
+    private Reservation reservation = null;
 
     private void reset() {
         numGuests = 0;
@@ -22,14 +25,13 @@ public class Room {
         address = null;
         startDate = null;
         endDate = null;
-        numOrders = 0;
         checkedIn = false;
     }
 
     /**
      * Default constructor for the Room class.
      */
-    public Room() {
+    public Room(int roomNum, int capacity) {
         orders = new ArrayList<RoomService>();
         needsCleaning = false;
         reset();
@@ -96,14 +98,16 @@ public class Room {
     }
 
     /**
-     *
+     * Creates a reservation for specific date and time, if there is no pre-existing one.
      */
-    public void makeRestaurantReservation(String date, String time) {
-        //set reservation
-    }
-
-    public void viewRestaurantReservation() {
-        //output reservation info
+    public boolean makeRestaurantReservation(Date date, String time) {
+       if (reservation == null) {
+           reservation = new Reservation (name, date, time);
+           return true;
+       }
+       else {
+           return false;
+       }
     }
 
     public int getNumGuests() {
@@ -163,14 +167,6 @@ public class Room {
         this.orders = orders;
     }
 
-    public int getNumOrders() {
-        return numOrders;
-    }
-
-    public void setNumOrders(int numOrders) {
-        this.numOrders = numOrders;
-    }
-
     public boolean isCheckedIn() {
         return checkedIn;
     }
@@ -183,4 +179,11 @@ public class Room {
         this.needsCleaning = needsCleaning;
     }
 
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
 }
