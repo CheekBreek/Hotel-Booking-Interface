@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class Room {
     private int roomNum;
     private int capacity;
-    private int numGuests;
     private String name;
     private Date birthDate;
     private String address;
@@ -19,7 +18,6 @@ public class Room {
     private Reservation reservation = null;
 
     private void reset() {
-        numGuests = 0;
         name = null;
         birthDate = null;
         address = null;
@@ -110,14 +108,6 @@ public class Room {
        }
     }
 
-    public int getNumGuests() {
-        return numGuests;
-    }
-
-    public void setNumGuests(int numGuests) {
-        this.numGuests = numGuests;
-    }
-
     public String getName() {
         return name;
     }
@@ -186,4 +176,22 @@ public class Room {
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
+
+    public int getRoomNum() {
+        return roomNum;
+    }
+
+    public void setRoomNum(int roomNum) {
+        this.roomNum = roomNum;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+
 }
