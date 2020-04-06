@@ -13,6 +13,7 @@ public class Room {
     private Date startDate;
     private Date endDate;
     private ArrayList<RoomService> orders;
+    private boolean booked;
     private boolean checkedIn;
     private boolean needsCleaning;
     private Reservation reservation = null;
@@ -23,6 +24,7 @@ public class Room {
         address = null;
         startDate = null;
         endDate = null;
+        booked = false;
         checkedIn = false;
     }
 
@@ -30,9 +32,23 @@ public class Room {
      * Default constructor for the Room class.
      */
     public Room(int roomNum, int capacity) {
+        booked = false;
+        checkedIn = false;
         orders = new ArrayList<RoomService>();
         needsCleaning = false;
         reset();
+    }
+
+    /**
+     * Books a room & sets the guest's personal information.
+     */
+     public void bookRoom(String name, Date birthDate, String address, Date startDate, Date endDate) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.address = address;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        booked = true;   
     }
 
     /**
@@ -193,5 +209,7 @@ public class Room {
         this.capacity = capacity;
     }
 
-
+    public boolean isBooked() {
+        return booked;
+    }
 }
