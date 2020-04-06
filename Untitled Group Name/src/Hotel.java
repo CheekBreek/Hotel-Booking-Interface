@@ -31,11 +31,17 @@ public class Hotel {
 			
 			readIn.close();
 			
+			int capacity = 4;
+			int roomNum = 300;
 			for (int floor = 1; floor >= 0; floor--) {
 				for (int num = 9; num >= 0; num--) {
-					Room init = new Room();
+					if (num < 5) {
+						capacity = capacity / 2;
+					}
+					Room init = new Room(roomNum + num + 1, capacity);
 					rooms[floor][num] = init;
 				}
+				roomNum = roomNum - 100;
 			}
 		
 			String facilityFile = "FacilityFile";
