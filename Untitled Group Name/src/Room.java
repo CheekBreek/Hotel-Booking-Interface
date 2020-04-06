@@ -42,10 +42,12 @@ public class Room {
     /**
      * Books a room & sets the guest's personal information.
      */
-     public void bookRoom(String name, Date birthDate, String address) {
+     public void bookRoom(String name, Date birthDate, String address, Date startDate, Date endDate) {
         this.name = name;
         this.birthDate = birthDate;
         this.address = address;
+        this.startDate = startDate;
+        this.endDate = endDate;
         booked = true;   
     }
 
