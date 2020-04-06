@@ -70,6 +70,5 @@ public class Hotel {
 	}
 	public Facility getFacility(int index) {
 		return facilities.get(index);
-	}
-	
+	}	
 }
