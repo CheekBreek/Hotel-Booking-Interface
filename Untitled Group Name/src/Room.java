@@ -32,7 +32,8 @@ public class Room {
      * Default constructor for the Room class.
      */
     public Room(int roomNum, int capacity) {
-
+        booked = false;
+        checkedIn = false;
         orders = new ArrayList<RoomService>();
         needsCleaning = false;
         reset();
