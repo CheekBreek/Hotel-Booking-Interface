@@ -7,9 +7,9 @@ public class Hotel {
 	
 	private String name; 
 	private String description;
-	private ArrayList <Announcement> announcements;
-	private ArrayList <Room> rooms; 
-	private ArrayList <Facility> facilities;
+	private ArrayList <Announcement> announcements = new ArrayList<Announcement>();
+	private Room [][] rooms = new Room [2][10]; 
+	private ArrayList <Facility> facilities = new ArrayList<Facility>();
 
 	
 	public Hotel () throws Exception{
@@ -32,11 +32,13 @@ public class Hotel {
 			
 			readIn.close();
 			
-			for (int num = 20; num > 0; num--) {
-				Room init = new Room();
-				rooms.add(init);
+			for (int floor = 1; floor >= 0; floor--) {
+				for (int num = 9; num >= 0; num--) {
+					Room init = new Room();
+					rooms[floor][num] = init;
+				}
 			}
-			
+		
 			String facilityFile = "FacilityFile";
 			Input = new File(facilityFile);
 			readIn = new Scanner (Input);
@@ -63,7 +65,11 @@ public class Hotel {
 	public String getDescrition() {
 		return description;
 	}
-	public Room getRoom(int index) {
-		return rooms.get(index);
+	public Room getRoom(int floor, int room) {
+		return rooms [floor][room];
 	}
+	public Facility getFacility(int index) {
+		return facilities.get(index);
+	}
+	
 }
