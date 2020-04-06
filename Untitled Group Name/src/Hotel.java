@@ -62,7 +62,7 @@ public class Hotel {
 	public String getName() {
 		return name;
 	}
-	public String getDescrition() {
+	public String getDescription() {
 		return description;
 	}
 	public Room getRoom(int floor, int room) {
