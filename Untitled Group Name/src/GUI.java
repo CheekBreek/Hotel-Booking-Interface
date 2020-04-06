@@ -76,7 +76,7 @@ public class GUI extends JPanel
     private void createFacilityPanel(JPanel panel)
     {
         addFacilityNames(panel);
-        addFacilityAvailibility(panel);
+        addFacilityAvailability(panel);
         addFacilityDesc(panel);
         addFacilityTime(panel);
     }
@@ -84,27 +84,27 @@ public class GUI extends JPanel
     private void addFacilityNames(JPanel panel)
     {
         JLabel pool = new JLabel(hotel.getFacility(0).getName());
-        pool.setBounds(50, 0, 200, 100);
+        pool.setBounds(50, 0, 500, 100);
         pool.setFont(new Font("Verdana", Font.PLAIN, 18));
         panel.add(pool);
 
         JLabel gym = new JLabel(hotel.getFacility(1).getName());
-        gym.setBounds(50, 200, 200, 100);
+        gym.setBounds(50, 200, 500, 100);
         gym.setFont(new Font("Verdana", Font.PLAIN, 18));
         panel.add(gym);
 
         JLabel resturant = new JLabel(hotel.getFacility(2).getName());
-        resturant.setBounds(50, 400, 200, 100);
+        resturant.setBounds(50, 400, 500, 100);
         resturant.setFont(new Font("Verdana", Font.PLAIN, 18));
         panel.add(resturant);
 
         JLabel bar = new JLabel(hotel.getFacility(3).getName());
-        bar.setBounds(50, 600, 200, 100);
+        bar.setBounds(50, 600, 500, 100);
         bar.setFont(new Font("Verdana", Font.PLAIN, 18));
         panel.add(bar);
 
         JLabel lounge = new JLabel(hotel.getFacility(4).getName());
-        lounge.setBounds(50, 800, 200, 100);
+        lounge.setBounds(50, 800, 500, 100);
         lounge.setFont(new Font("Verdana", Font.PLAIN, 18));
         panel.add(lounge);
     }
@@ -138,78 +138,108 @@ public class GUI extends JPanel
 
         JButton changeTimePool = new JButton("Change Time");
         changeTimePool.setBounds(800, 50, 200, 50);
-        addDialogueBox(changeTimePool, 0, poolTime);
+        addDialogueBoxTime(changeTimePool, 0, poolTime);
         panel.add(changeTimePool);
 
         JButton changeTimeGym = new JButton("Change Time");
         changeTimeGym.setBounds(800, 250, 200, 50);
-        addDialogueBox(changeTimeGym, 1, gymTime);
+        addDialogueBoxTime(changeTimeGym, 1, gymTime);
         panel.add(changeTimeGym);
 
         JButton changeTimeResturant = new JButton("Change Time");
         changeTimeResturant.setBounds(800, 450, 200, 50);
-        addDialogueBox(changeTimeResturant, 2, resturantTime);
+        addDialogueBoxTime(changeTimeResturant, 2, resturantTime);
         panel.add(changeTimeResturant);
 
         JButton changeTimeBar = new JButton("Change Time");
         changeTimeBar.setBounds(800, 650, 200, 50);
-        addDialogueBox(changeTimeBar, 3, barTime);
+        addDialogueBoxTime(changeTimeBar, 3, barTime);
         panel.add(changeTimeBar);
 
         JButton changeTimeLounge = new JButton("Change Time");
         changeTimeLounge.setBounds(800, 850, 200, 50);
-        addDialogueBox(changeTimeLounge, 4, loungeTime);
+        addDialogueBoxTime(changeTimeLounge, 4, loungeTime);
         panel.add(changeTimeLounge);
     }
 
-    private void addFacilityAvailibility(JPanel panel)
+    private void addFacilityAvailability(JPanel panel)
     {
-        JButton changeAvailibilityPool = new JButton("Change Availibility");
-        changeAvailibilityPool.setBounds(800, 100, 200, 50);
-        panel.add(changeAvailibilityPool);
+        JLabel poolAvailability = new JLabel(availabilitySwap(hotel.getFacility(0).getAvailability()));
+        poolAvailability.setBounds(600, 0, 200, 100);
+        poolAvailability.setFont(new Font("Verdana", Font.PLAIN, 18));
+        panel.add(poolAvailability);
 
-        JButton changeAvailibilityGym = new JButton("Change Availibility");
-        changeAvailibilityGym.setBounds(800, 300, 200, 50);
-        panel.add(changeAvailibilityGym);
+        JLabel gymAvailability = new JLabel(availabilitySwap(hotel.getFacility(1).getAvailability()));
+        gymAvailability.setBounds(600, 200, 200, 100);
+        gymAvailability.setFont(new Font("Verdana", Font.PLAIN, 18));
+        panel.add(gymAvailability);
 
-        JButton changeAvailibilityResturant = new JButton("Change Availibility");
-        changeAvailibilityResturant.setBounds(800, 500, 200, 50);
-        panel.add(changeAvailibilityResturant);
+        JLabel resturantAvailability = new JLabel(availabilitySwap(hotel.getFacility(2).getAvailability()));
+        resturantAvailability.setBounds(600, 400, 200, 100);
+        resturantAvailability.setFont(new Font("Verdana", Font.PLAIN, 18));
+        panel.add(resturantAvailability);
 
-        JButton changeAvailibilityBar = new JButton("Change Availibility");
-        changeAvailibilityBar.setBounds(800, 700, 200, 50);
-        panel.add(changeAvailibilityBar);
+        JLabel barAvailability = new JLabel(availabilitySwap(hotel.getFacility(3).getAvailability()));
+        barAvailability.setBounds(600, 600, 200, 100);
+        barAvailability.setFont(new Font("Verdana", Font.PLAIN, 18));
+        panel.add(barAvailability);
 
-        JButton changeAvailibilityLounge = new JButton("Change Availibility");
-        changeAvailibilityLounge.setBounds(800, 900, 200, 50);
-        panel.add(changeAvailibilityLounge);
+        JLabel loungeAvailability = new JLabel(availabilitySwap(hotel.getFacility(4).getAvailability()));
+        loungeAvailability.setBounds(600, 800, 200, 100);
+        loungeAvailability.setFont(new Font("Verdana", Font.PLAIN, 18));
+        panel.add(loungeAvailability);
+
+        JButton changeAvailabilityPool = new JButton("Change Availability");
+        changeAvailabilityPool.setBounds(800, 100, 200, 50);
+        addDialogueBoxAvailability(changeAvailabilityPool, 0, poolAvailability);
+        panel.add(changeAvailabilityPool);
+
+        JButton changeAvailabilityGym = new JButton("Change Availability");
+        changeAvailabilityGym.setBounds(800, 300, 200, 50);
+        addDialogueBoxAvailability(changeAvailabilityGym, 0, gymAvailability);
+        panel.add(changeAvailabilityGym);
+
+        JButton changeAvailabilityResturant = new JButton("Change Availability");
+        changeAvailabilityResturant.setBounds(800, 500, 200, 50);
+        addDialogueBoxAvailability(changeAvailabilityResturant, 0, resturantAvailability);
+        panel.add(changeAvailabilityResturant);
+
+        JButton changeAvailabilityBar = new JButton("Change Availability");
+        changeAvailabilityBar.setBounds(800, 700, 200, 50);
+        addDialogueBoxAvailability(changeAvailabilityBar, 0, barAvailability);
+        panel.add(changeAvailabilityBar);
+
+        JButton changeAvailabilityLounge = new JButton("Change Availability");
+        changeAvailabilityLounge.setBounds(800, 900, 200, 50);
+        addDialogueBoxAvailability(changeAvailabilityLounge, 0, loungeAvailability);
+        panel.add(changeAvailabilityLounge);
     }
 
 
     private void addFacilityDesc(JPanel panel)
     {
         JLabel poolDesc = new JLabel(hotel.getFacility(0).getDescription());
-        poolDesc.setBounds(50, 50, 200, 100);
+        poolDesc.setBounds(50, 50, 500, 100);
         poolDesc.setFont(new Font("Verdana", Font.PLAIN, 14));
         panel.add(poolDesc);
 
-        JLabel gymDesc = new JLabel(hotel.getFacility(0).getDescription());
-        gymDesc.setBounds(50, 250, 200, 100);
+        JLabel gymDesc = new JLabel(hotel.getFacility(1).getDescription());
+        gymDesc.setBounds(50, 250, 500, 100);
         gymDesc.setFont(new Font("Verdana", Font.PLAIN, 14));
         panel.add(gymDesc);
 
-        JLabel resturantDesc = new JLabel(hotel.getFacility(0).getDescription());
-        resturantDesc.setBounds(50, 450, 200, 100);
+        JLabel resturantDesc = new JLabel(hotel.getFacility(2).getDescription());
+        resturantDesc.setBounds(50, 450, 500, 100);
         resturantDesc.setFont(new Font("Verdana", Font.PLAIN, 14));
         panel.add(resturantDesc);
 
-        JLabel barDesc = new JLabel(hotel.getFacility(0).getDescription());
-        barDesc.setBounds(50, 650, 200, 100);
+        JLabel barDesc = new JLabel(hotel.getFacility(3).getDescription());
+        barDesc.setBounds(50, 650, 500, 100);
         barDesc.setFont(new Font("Verdana", Font.PLAIN, 14));
         panel.add(barDesc);
 
-        JLabel loungeDesc = new JLabel(hotel.getFacility(0).getDescription());
-        loungeDesc.setBounds(50, 850, 200, 100);
+        JLabel loungeDesc = new JLabel(hotel.getFacility(4).getDescription());
+        loungeDesc.setBounds(50, 850, 500, 100);
         loungeDesc.setFont(new Font("Verdana", Font.PLAIN, 14));
         panel.add(loungeDesc);
     }
@@ -245,7 +275,7 @@ public class GUI extends JPanel
         label.setText(newData);
     }
 
-    private void addDialogueBox(JButton button, int index, JLabel label)
+    private void addDialogueBoxTime(JButton button, int index, JLabel label)
     {
         button.addActionListener(
                 new ActionListener()
@@ -257,6 +287,42 @@ public class GUI extends JPanel
                     }
                 }
                 );
+    }
+
+    private void changeAvailability(int index, JLabel label)
+    {
+        hotel.getFacility(index).setAvailablity(!hotel.getFacility(index).getAvailability());
+        label.setText(availabilitySwap(hotel.getFacility(index).getAvailability()));
+    }
+
+    private void addDialogueBoxAvailability(JButton button, int index, JLabel label)
+    {
+        button.addActionListener(
+                new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        changeAvailability(index, label);
+                    }
+                }
+                );
+    }
+
+    private String availabilitySwap(boolean bool)
+    {
+        String string = null;
+
+        if(bool == true)
+        {
+            string = "OPEN";
+        }
+        else
+        {
+            string = "CLOSED";
+        }
+
+        return string;
     }
 
     public static void createAndShowGUI()
