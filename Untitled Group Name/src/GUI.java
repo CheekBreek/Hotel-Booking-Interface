@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormatSymbols;
@@ -13,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 public class GUI extends JPanel
 {
@@ -81,6 +83,8 @@ public class GUI extends JPanel
         hotelAnnouncements.setFont(new Font("Verdana", Font.PLAIN, 18));
         panel.add(hotelAnnouncements);
     }
+
+    //FACILITY FUNCTIONS
 
     private void createFacilityPanel(JPanel panel)
     {
@@ -301,6 +305,12 @@ public class GUI extends JPanel
             panel.add(room);
             loop++;
         }
+
+        JButton makeBooking = new JButton("Make Booking");
+        makeBooking.setPreferredSize(new Dimension(200, 100));
+        makeBooking.setBounds(400, 850, 200, 100);
+        addActionMakeBooking(makeBooking);
+        panel.add(makeBooking);
     }
 
     private void changeTime(int index, JLabel label)
@@ -362,54 +372,6 @@ public class GUI extends JPanel
         return string;
     }
 
-    /*
-    private void roomGUI(int floor, int room, boolean firstLaunch, JPanel panel)
-    {
-        JLabel custName = new JLabel();
-        JLabel startDate = new JLabel();
-        JLabel endDate = new JLabel();
-        JLabel checkedIn = new JLabel();
-
-        floor = floor - 2;
-        room = room - 1;
-
-        if(firstLaunch == true)
-        {
-            custName.setBounds(100, 100, 200, 100);
-            custName.setFont(new Font("Verdana", Font.PLAIN, 18));
-            panel.add(custName);
-
-            startDate.setBounds(100, 300, 200, 100);
-            startDate.setFont(new Font("Verdana", Font.PLAIN, 18));
-            panel.add(startDate);
-
-            endDate.setBounds(100, 500, 200, 100);
-            endDate.setFont(new Font("Verdana", Font.PLAIN, 18));
-            panel.add(endDate);
-
-            checkedIn.setBounds(100, 700, 200, 100);
-            checkedIn.setFont(new Font("Verdana", Font.PLAIN, 18));
-            panel.add(checkedIn);
-        }
-
-        if(hotel.getRoom(floor, room).isBooked() == true)
-        {
-            custName.setText("Customer Name: " + hotel.getRoom(floor, room).getName());
-            startDate.setText("Start Date: " + dateToString(hotel.getRoom(floor, room).getStartDate()));
-            endDate.setText("End Date: " + dateToString(hotel.getRoom(floor, room).getEndDate()));
-            checkedIn.setText("Check In Status: " + checkInSwap(hotel.getRoom(floor, room).isCheckedIn()));
-
-        }
-        else
-        {
-            custName.setText("Customer Name: ");
-            startDate.setText("Start Date: ");
-            endDate.setText("End Date: ");
-            checkedIn.setText("Check In Status: ");
-        }
-    }
-    */
-
     private void updateRoomGUI(int floor, int room, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn)
     {
         if(hotel.getRoom(floor, room).isBooked() == true)
@@ -444,6 +406,53 @@ public class GUI extends JPanel
                 );
     }
 
+    private void makeBooking()
+    {
+        JFrame box = new JFrame();
+
+        JTextField roomNumber = new JTextField(40);
+        JTextField name = new JTextField(40);
+        JTextField dateOfBirth = new JTextField(40);
+        JTextField address = new JTextField(40);
+        JTextField startDate = new JTextField(40);
+        JTextField endDate = new JTextField(40);
+
+        JPanel myPanel = new JPanel();
+        myPanel.add(new JLabel("Room Number:"));
+        myPanel.add(roomNumber);
+        myPanel.setLayout(new GridLayout(0,1));
+        myPanel.add(new JLabel("Name:"));
+        myPanel.add(name);
+        myPanel.add(new JLabel("Date of Birth:"));
+        myPanel.add(dateOfBirth);
+        myPanel.add(new JLabel("Address:"));
+        myPanel.add(address);
+        myPanel.add(new JLabel("Start Date:"));
+        myPanel.add(startDate);
+        myPanel.add(new JLabel("End Date:"));
+        myPanel.add(endDate);
+
+        int result = JOptionPane.showConfirmDialog(box, myPanel,
+                "Please Enter Reservation Information", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION)
+        {
+
+        }
+    }
+
+    private void addActionMakeBooking(JButton button)
+    {
+        button.addActionListener(
+                new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        makeBooking();
+                    }
+                }
+                );
+    }
 
     private String checkInSwap(boolean bool)
     {
