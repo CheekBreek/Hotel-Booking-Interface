@@ -8,7 +8,7 @@ public class main
     	try {
         Hotel hotel = new Hotel();
     	} catch (Exception input) {
-    		System.out.println(input.getMessage());
+    		System.out.println(input);
         }
         
         SwingUtilities.invokeLater(new Runnable()
