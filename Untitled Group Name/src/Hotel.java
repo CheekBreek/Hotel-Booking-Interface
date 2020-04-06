@@ -37,7 +37,7 @@ public class Hotel {
             for (int floor = 1; floor >= 0; floor--) {
                 for (int num = 9; num >= 0; num--)
                 {
-                    if (num < 5)
+                    if (num == 4)
                     {
                         capacity = capacity / 2;
                     }
