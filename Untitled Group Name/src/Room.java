@@ -13,6 +13,7 @@ public class Room {
     private Date startDate;
     private Date endDate;
     private ArrayList<RoomService> orders;
+    private boolean booked;
     private boolean checkedIn;
     private boolean needsCleaning;
     private Reservation reservation = null;
@@ -23,6 +24,7 @@ public class Room {
         address = null;
         startDate = null;
         endDate = null;
+        booked = false;
         checkedIn = false;
     }
 
@@ -30,6 +32,7 @@ public class Room {
      * Default constructor for the Room class.
      */
     public Room(int roomNum, int capacity) {
+
         orders = new ArrayList<RoomService>();
         needsCleaning = false;
         reset();
@@ -191,6 +194,14 @@ public class Room {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public boolean isBooked() {
+        return booked;
+    }
+
+    public void setBooked(boolean booked) {
+        this.booked = booked;
     }
 
 
