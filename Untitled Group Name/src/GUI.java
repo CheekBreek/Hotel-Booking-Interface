@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormatSymbols;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -65,11 +67,13 @@ public class GUI extends JPanel
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
     }
 
+  //MAIN FUNCTIONS
+
     private void createMainPanel(JPanel panel)
     {
         JLabel hotelName = new JLabel(hotel.getName());
-        hotelName.setBounds(50, 0, 200, 100);
-        hotelName.setFont(new Font("Verdana", Font.PLAIN, 18));
+        hotelName.setBounds(50, 0, 500, 100);
+        hotelName.setFont(new Font("Verdana", Font.BOLD, 24));
         panel.add(hotelName);
 
         JLabel hotelDesc = new JLabel(hotel.getDescription());
@@ -84,6 +88,7 @@ public class GUI extends JPanel
 
         JTextArea textArea = new JTextArea();
         textArea.setEditable(false);
+        textArea.setFont(new Font("Arial", Font.PLAIN, 18));
         JScrollPane scroll = new JScrollPane (textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll.setBounds(100, 400, 800, 300);
         listAnnouncements(textArea);
@@ -117,11 +122,11 @@ public class GUI extends JPanel
         int room = 0;
 
         JFrame outputBox = new JFrame("Room List");
-        outputBox.setBounds(500, 400, 300, 300);
+        outputBox.setBounds(500, 400, 300, 500);
         JTextArea textArea = new JTextArea();
         textArea.setEditable(false);
         JScrollPane scroll = new JScrollPane (textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scroll.setBounds(500, 400, 300, 300);
+        scroll.setBounds(500, 400, 300, 500);
         outputBox.add(scroll);
 
         if(input != null)
@@ -172,9 +177,12 @@ public class GUI extends JPanel
         JFrame box = new JFrame();
         String newData = JOptionPane.showInputDialog(box, "Enter new announcement:  ");
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
         if(newData != null)
         {
-            hotel.addAnnouncement(newData + "\n", "");
+            hotel.addAnnouncement(newData + "\n", dtf.format(now));
         }
     }
 
@@ -197,7 +205,7 @@ public class GUI extends JPanel
     private void removeAnnouncement()
     {
         JFrame box = new JFrame();
-        String newData = JOptionPane.showInputDialog(box, "Enter the announcement you want to delete:  ");
+        String newData = JOptionPane.showInputDialog(box, "Enter number of the announcement you want to delete: ");
 
         if(newData != null)
         {
@@ -226,7 +234,7 @@ public class GUI extends JPanel
         int loop = 0;
         while(loop < hotel.getAnnouncementsLength())
         {
-            textArea.append((loop + 1) + ". " + hotel.getAnnouncement(loop));
+            textArea.append(hotel.getAnnouncementDate(loop) + "\n" + (loop + 1) + ") " + hotel.getAnnouncement(loop));
             loop++;
         }
     }
@@ -375,7 +383,6 @@ public class GUI extends JPanel
         panel.add(changeAvailabilityLounge);
     }
 
-
     private void addFacilityDesc(JPanel panel)
     {
         JLabel poolDesc = new JLabel(hotel.getFacility(0).getDescription());
@@ -474,27 +481,33 @@ public class GUI extends JPanel
         JLabel startDate = new JLabel();
         JLabel endDate = new JLabel();
         JLabel checkedIn = new JLabel();
+        JLabel requiresCleaning = new JLabel();
 
         custName.setBounds(100, 100, 600, 100);
         custName.setFont(new Font("Verdana", Font.PLAIN, 18));
         panel.add(custName);
 
-        startDate.setBounds(100, 300, 600, 100);
+        startDate.setBounds(100, 250, 600, 100);
         startDate.setFont(new Font("Verdana", Font.PLAIN, 18));
         panel.add(startDate);
 
-        endDate.setBounds(100, 500, 600, 100);
+        endDate.setBounds(100, 400, 600, 100);
         endDate.setFont(new Font("Verdana", Font.PLAIN, 18));
         panel.add(endDate);
 
-        checkedIn.setBounds(100, 700, 600, 100);
+        checkedIn.setBounds(100, 550, 600, 100);
         checkedIn.setFont(new Font("Verdana", Font.PLAIN, 18));
         panel.add(checkedIn);
+
+        requiresCleaning.setBounds(100, 700, 600, 100);
+        requiresCleaning.setFont(new Font("Verdana", Font.PLAIN, 18));
+        panel.add(requiresCleaning);
 
         custName.setText("Customer Name: ");
         startDate.setText("Start Date: ");
         endDate.setText("End Date: ");
         checkedIn.setText("Check In Status: ");
+        requiresCleaning.setText("Requires Cleaning: ");
 
         String roomNumber;
         JButton room;
@@ -509,7 +522,7 @@ public class GUI extends JPanel
             }
 
             room = new JButton(roomNumber);
-            addActionRoomButton(room, floor - 2, loop - 1, custName, startDate, endDate, checkedIn);
+            addActionRoomButton(room, floor - 2, loop - 1, custName, startDate, endDate, checkedIn, requiresCleaning);
             room.setPreferredSize(new Dimension(100, 100));
             room.setBounds((loop - 1)*100, 0, 100, 100);
             room.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -519,38 +532,49 @@ public class GUI extends JPanel
 
         JButton makeBooking = new JButton("Make Booking");
         makeBooking.setPreferredSize(new Dimension(200, 100));
-        makeBooking.setBounds(300, 850, 200, 100);
-        addActionMakeBooking(makeBooking, custName, startDate, endDate, checkedIn);
+        makeBooking.setBounds(400, 850, 200, 100);
+        addActionMakeBooking(makeBooking, custName, startDate, endDate, checkedIn, requiresCleaning);
         panel.add(makeBooking);
 
         JButton changeCheckIn = new JButton("Check In/Check Out");
         changeCheckIn.setPreferredSize(new Dimension(200, 100));
-        changeCheckIn.setBounds(500, 850, 200, 100);
+        changeCheckIn.setBounds(600, 850, 200, 100);
         addActionCheckIn(changeCheckIn);
         panel.add(changeCheckIn);
+
+        JButton requestCleaning = new JButton("Change Cleaning Status");
+        requestCleaning.setPreferredSize(new Dimension(200, 100));
+        requestCleaning.setBounds(200, 850, 200, 100);
+        addActionToggleCleaning(requestCleaning);
+        panel.add(requestCleaning);
     }
 
-    private void updateRoomGUI(int floor, int room, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn)
+    private void toggleCleaning()
     {
-        if(hotel.getRoom(floor, room).isBooked() == true)
-        {
-            custName.setText("Customer Name: " + hotel.getRoom(floor, room).getName());
-            startDate.setText("Start Date: " + dateToString(hotel.getRoom(floor, room).getStartDate()));
-            endDate.setText("End Date: " + dateToString(hotel.getRoom(floor, room).getEndDate()));
-            checkedIn.setText("Check In Status: " + checkInBoolToString(hotel.getRoom(floor, room).isCheckedIn()));
-        }
-        else
-        {
-            custName.setText("Customer Name: ");
-            startDate.setText("Start Date: ");
-            endDate.setText("End Date: ");
-            checkedIn.setText("Check In Status: ");
-        }
+        JFrame box = new JFrame();
+        String newData = JOptionPane.showInputDialog(box, "Which room would you like to toggle cleaning?: ");
 
+
+        if(newData != null)
+        {
+            int floor = Integer.parseInt(newData.substring(0, 1)) - 2;
+            int room = Integer.parseInt(newData.substring(1, 3)) - 1;
+
+            if(hotel.getRoom(floor, room).isBooked() == true)
+            {
+                if(hotel.getRoom(floor, room).needsCleaning() == true)
+                {
+                    hotel.getRoom(floor, room).setNeedsCleaning(false);
+                }
+                else
+                {
+                    hotel.getRoom(floor, room).setNeedsCleaning(true);
+                }
+            }
+        }
     }
 
-
-    private void addActionRoomButton(JButton button, int floor, int room, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn)
+    private void addActionToggleCleaning(JButton button)
     {
         button.addActionListener(
                 new ActionListener()
@@ -558,13 +582,49 @@ public class GUI extends JPanel
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        updateRoomGUI(floor, room, custName, startDate, endDate, checkedIn);
+                        toggleCleaning();
                     }
                 }
                 );
     }
 
-    private void makeBooking(JLabel custName, JLabel startDateLabel, JLabel endDateLabel, JLabel checkedIn)
+    private void updateRoomGUI(int floor, int room, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn, JLabel requiresCleaning)
+    {
+        if(hotel.getRoom(floor, room).isBooked() == true)
+        {
+            custName.setText("Customer Name: " + hotel.getRoom(floor, room).getName());
+            startDate.setText("Start Date: " + dateToString(hotel.getRoom(floor, room).getStartDate()));
+            endDate.setText("End Date: " + dateToString(hotel.getRoom(floor, room).getEndDate()));
+            checkedIn.setText("Check In Status: " + checkInBoolToString(hotel.getRoom(floor, room).isCheckedIn()));
+            requiresCleaning.setText("Requires Cleaning: " + cleaningBoolToString(hotel.getRoom(floor, room).needsCleaning()));
+
+        }
+        else
+        {
+            custName.setText("Customer Name: ");
+            startDate.setText("Start Date: ");
+            endDate.setText("End Date: ");
+            checkedIn.setText("Check In Status: ");
+            requiresCleaning.setText("Requires Cleaning: ");
+        }
+
+    }
+
+    private void addActionRoomButton(JButton button, int floor, int room, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn, JLabel requiresCleaning)
+    {
+        button.addActionListener(
+                new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        updateRoomGUI(floor, room, custName, startDate, endDate, checkedIn, requiresCleaning);
+                    }
+                }
+                );
+    }
+
+    private void makeBooking(JLabel custName, JLabel startDateLabel, JLabel endDateLabel, JLabel checkedIn, JLabel requiresCleaning)
     {
         JFrame box = new JFrame();
 
@@ -610,11 +670,11 @@ public class GUI extends JPanel
                     Integer.parseInt(end.getText().substring(4, 8)));
 
             hotel.getRoom(floorNum, roomNum).bookRoom(name.getText(), birthday, address.getText(), startDate, endDate);
-            updateRoomGUI(floorNum, roomNum, custName, startDateLabel, endDateLabel, checkedIn);
+            updateRoomGUI(floorNum, roomNum, custName, startDateLabel, endDateLabel, checkedIn, requiresCleaning);
         }
     }
 
-    private void addActionMakeBooking(JButton button, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn)
+    private void addActionMakeBooking(JButton button, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn, JLabel requiresCleaning)
     {
         button.addActionListener(
                 new ActionListener()
@@ -622,7 +682,7 @@ public class GUI extends JPanel
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        makeBooking(custName, startDate, endDate, checkedIn);
+                        makeBooking(custName, startDate, endDate, checkedIn, requiresCleaning);
                     }
                 }
                 );
@@ -632,7 +692,6 @@ public class GUI extends JPanel
     {
         JFrame box = new JFrame();
         String newData = JOptionPane.showInputDialog(box, "Which room would you like to Check In/Check Out?: ");
-
 
         if(newData != null)
         {
@@ -650,8 +709,6 @@ public class GUI extends JPanel
                     hotel.getRoom(floor, room).checkOut();
                 }
             }
-
-            //checkIn.setText(checkInBoolToString(!hotel.getRoom(floor, room).isCheckedIn()));
         }
     }
 
@@ -685,6 +742,21 @@ public class GUI extends JPanel
         return string;
     }
 
+    private String cleaningBoolToString(boolean bool)
+    {
+        String string = null;
+
+        if(bool == true)
+        {
+            string = "Cleaning requested";
+        }
+        else
+        {
+            string = "Cleaning not requested";
+        }
+
+        return string;
+    }
 
     private String dateToString(Date date)
     {
@@ -694,7 +766,6 @@ public class GUI extends JPanel
 
         return month + " " + day + " " + year;
     }
-
 
     public static void createAndShowGUI()
     {

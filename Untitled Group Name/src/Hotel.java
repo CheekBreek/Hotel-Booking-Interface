@@ -72,6 +72,11 @@ public class Hotel {
         return announcements.get(index).getAnnounce();
     }
 
+    public String getAnnouncementDate(int index)
+    {
+        return announcements.get(index).getDate();
+    }
+
     public int getAnnouncementsLength()
     {
         return announcements.size();
