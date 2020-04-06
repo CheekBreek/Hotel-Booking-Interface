@@ -31,11 +31,13 @@ public class Room {
     /**
      * Default constructor for the Room class.
      */
-    public Room(int roomNum, int capacity) {
+    public Room(int roomNum, int capacity)
+    {
         booked = false;
         checkedIn = false;
         orders = new ArrayList<RoomService>();
         needsCleaning = false;
+        this.capacity = capacity;
         reset();
     }
 
@@ -48,7 +50,7 @@ public class Room {
         this.address = address;
         this.startDate = startDate;
         this.endDate = endDate;
-        booked = true;   
+        booked = true;
     }
 
     /**
