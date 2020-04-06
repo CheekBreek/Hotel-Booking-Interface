@@ -40,6 +40,16 @@ public class Room {
     }
 
     /**
+     * Books a room & sets the guest's personal information.
+     */
+     public void bookRoom(String name, Date birthDate, String address) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.address = address;
+        booked = true;   
+    }
+
+    /**
      * Sets the room as checked-in.
      * If it's already checked-in, returns false.
      */
@@ -200,10 +210,4 @@ public class Room {
     public boolean isBooked() {
         return booked;
     }
-
-    public void setBooked(boolean booked) {
-        this.booked = booked;
-    }
-
-
 }
