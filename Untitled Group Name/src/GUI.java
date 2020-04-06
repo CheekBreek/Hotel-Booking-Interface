@@ -1,9 +1,11 @@
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormatSymbols;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,27 +29,34 @@ public class GUI extends JPanel
             System.out.println(input.getMessage());
         }
 
-        //super(new GridLayout(1, 1));
+        //hotel.getRoom(0, 0).bookRoom("Andrew", new Date(2, 2, 2000), "222 Address", new Date(1, 17, 2001), new Date(2, 3, 2011));
+        //hotel.getRoom(1, 1).bookRoom("Billy", new Date(5, 2, 2000), "111 Address", new Date(1, 17, 2001), new Date(2, 3, 2011));
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
         JPanel mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(1000, 1000));
+        mainPanel.setBackground(new Color(196, 234, 255));
         mainPanel.setLayout(null);
         createMainPanel(mainPanel);
         tabbedPane.addTab("MAIN FLOOR", null, mainPanel);
 
         JPanel facilitiesPanel = new JPanel();
+        facilitiesPanel.setBackground(new Color(196, 234, 255));
         facilitiesPanel.setLayout(null);
         createFacilityPanel(facilitiesPanel);
         tabbedPane.addTab("FACILITIES", null, facilitiesPanel);
 
         JPanel f2Panel = new JPanel();
+        f2Panel.setBackground(new Color(196, 234, 255));
         createFloorPanel(f2Panel, 2);
+        f2Panel.setLayout(null);
         tabbedPane.addTab("FLOOR 2", null, f2Panel);
 
         JPanel f3Panel = new JPanel();
+        f3Panel.setBackground(new Color(196, 234, 255));
         createFloorPanel(f3Panel, 3);
+        f3Panel.setLayout(null);
         tabbedPane.addTab("FLOOR 3", null, f3Panel);
 
         add(tabbedPane);
@@ -246,23 +255,51 @@ public class GUI extends JPanel
 
     private void createFloorPanel(JPanel panel, int floor)
     {
+        JLabel custName = new JLabel();
+        JLabel startDate = new JLabel();
+        JLabel endDate = new JLabel();
+        JLabel checkedIn = new JLabel();
+
+        custName.setBounds(100, 100, 600, 100);
+        custName.setFont(new Font("Verdana", Font.PLAIN, 18));
+        panel.add(custName);
+
+        startDate.setBounds(100, 300, 600, 100);
+        startDate.setFont(new Font("Verdana", Font.PLAIN, 18));
+        panel.add(startDate);
+
+        endDate.setBounds(100, 500, 600, 100);
+        endDate.setFont(new Font("Verdana", Font.PLAIN, 18));
+        panel.add(endDate);
+
+        checkedIn.setBounds(100, 700, 600, 100);
+        checkedIn.setFont(new Font("Verdana", Font.PLAIN, 18));
+        panel.add(checkedIn);
+
+        custName.setText("Customer Name: ");
+        startDate.setText("Start Date: ");
+        endDate.setText("End Date: ");
+        checkedIn.setText("Check In Status: ");
+
         String roomNumber;
         JButton room;
-        int i = 1;
+        int loop = 1;
 
-        while(i <= 10)
+        while(loop <= 10)
         {
-            roomNumber = floor + "0" + i;
-            if(i == 10)
+            roomNumber = floor + "0" + loop;
+            if(loop == 10)
             {
-                roomNumber = floor + Integer.toString(i);
+                roomNumber = floor + Integer.toString(loop);
             }
 
             room = new JButton(roomNumber);
+            addActionRoomButton(room, floor - 2, loop - 1, custName, startDate, endDate, checkedIn);
             room.setPreferredSize(new Dimension(100, 100));
+            room.setBounds((loop - 1)*100, 0, 100, 100);
             room.setFont(new Font("Verdana", Font.PLAIN, 18));
             panel.add(room);
-            i++;
+            loop++;
         }
     }
 
@@ -324,6 +361,116 @@ public class GUI extends JPanel
 
         return string;
     }
+
+    /*
+    private void roomGUI(int floor, int room, boolean firstLaunch, JPanel panel)
+    {
+        JLabel custName = new JLabel();
+        JLabel startDate = new JLabel();
+        JLabel endDate = new JLabel();
+        JLabel checkedIn = new JLabel();
+
+        floor = floor - 2;
+        room = room - 1;
+
+        if(firstLaunch == true)
+        {
+            custName.setBounds(100, 100, 200, 100);
+            custName.setFont(new Font("Verdana", Font.PLAIN, 18));
+            panel.add(custName);
+
+            startDate.setBounds(100, 300, 200, 100);
+            startDate.setFont(new Font("Verdana", Font.PLAIN, 18));
+            panel.add(startDate);
+
+            endDate.setBounds(100, 500, 200, 100);
+            endDate.setFont(new Font("Verdana", Font.PLAIN, 18));
+            panel.add(endDate);
+
+            checkedIn.setBounds(100, 700, 200, 100);
+            checkedIn.setFont(new Font("Verdana", Font.PLAIN, 18));
+            panel.add(checkedIn);
+        }
+
+        if(hotel.getRoom(floor, room).isBooked() == true)
+        {
+            custName.setText("Customer Name: " + hotel.getRoom(floor, room).getName());
+            startDate.setText("Start Date: " + dateToString(hotel.getRoom(floor, room).getStartDate()));
+            endDate.setText("End Date: " + dateToString(hotel.getRoom(floor, room).getEndDate()));
+            checkedIn.setText("Check In Status: " + checkInSwap(hotel.getRoom(floor, room).isCheckedIn()));
+
+        }
+        else
+        {
+            custName.setText("Customer Name: ");
+            startDate.setText("Start Date: ");
+            endDate.setText("End Date: ");
+            checkedIn.setText("Check In Status: ");
+        }
+    }
+    */
+
+    private void updateRoomGUI(int floor, int room, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn)
+    {
+        if(hotel.getRoom(floor, room).isBooked() == true)
+        {
+            custName.setText("Customer Name: " + hotel.getRoom(floor, room).getName());
+            startDate.setText("Start Date: " + dateToString(hotel.getRoom(floor, room).getStartDate()));
+            endDate.setText("End Date: " + dateToString(hotel.getRoom(floor, room).getEndDate()));
+            checkedIn.setText("Check In Status: " + checkInSwap(hotel.getRoom(floor, room).isCheckedIn()));
+        }
+        else
+        {
+            custName.setText("Customer Name: ");
+            startDate.setText("Start Date: ");
+            endDate.setText("End Date: ");
+            checkedIn.setText("Check In Status: ");
+        }
+
+    }
+
+
+    private void addActionRoomButton(JButton button, int floor, int room, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn)
+    {
+        button.addActionListener(
+                new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        updateRoomGUI(floor, room, custName, startDate, endDate, checkedIn);
+                    }
+                }
+                );
+    }
+
+
+    private String checkInSwap(boolean bool)
+    {
+        String string = null;
+
+        if(bool == true)
+        {
+            string = "Checked in";
+        }
+        else
+        {
+            string = "Not checked in";
+        }
+
+        return string;
+    }
+
+
+    private String dateToString(Date date)
+    {
+        String month = (new DateFormatSymbols().getMonths()[date.getMonth() - 1]);
+        String day = Integer.toString(date.getDay());
+        String year = Integer.toString(date.getYear());
+
+        return month + " " + day + " " + year;
+    }
+
 
     public static void createAndShowGUI()
     {
