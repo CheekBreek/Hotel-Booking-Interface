@@ -1,5 +1,5 @@
 /**
- *
+ * A class representing a restaurant reservation.
  *
  */
 public class Reservation {
