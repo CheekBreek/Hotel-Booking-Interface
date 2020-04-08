@@ -10,7 +10,7 @@ public class Hotel {
     private Room [][] rooms = new Room [2][10];
     private ArrayList <Facility> facilities = new ArrayList<Facility>();
 
-
+    //Constructor initializes needed hotel values on create
     public Hotel () throws Exception
     {
             String hotelFile = "HotelFile";
@@ -19,7 +19,7 @@ public class Hotel {
 
             String line = readIn.nextLine();
             name = line;
-
+            				// reads in hotel information.
             while (readIn.hasNext()) {
                 line = readIn.nextLine();
                 if (description == null) {
@@ -31,7 +31,7 @@ public class Hotel {
             }
 
             readIn.close();
-
+            				// creates and initializes rooms
             int capacity = 4;
             int roomNum = 300;
             for (int floor = 1; floor >= 0; floor--) {
@@ -46,7 +46,7 @@ public class Hotel {
                 }
                 roomNum = roomNum - 100;
             }
-
+            				// Reads in Facility information
             String facilityFile = "FacilityFile";
             Input = new File(facilityFile);
             readIn = new Scanner (Input);
