@@ -67,8 +67,7 @@ public class GUI extends JPanel
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
     }
 
-  //MAIN FUNCTIONS
-
+    //Generates the Main Floor panel
     private void createMainPanel(JPanel panel)
     {
         JLabel hotelName = new JLabel(hotel.getName());
@@ -112,7 +111,7 @@ public class GUI extends JPanel
         addActionRemoveAnnouncement(removeAnnouncement, textArea);
         panel.add(removeAnnouncement);
     }
-
+    //Creates dialogue box for searching rooms
     private void searchRoom()
     {
         JFrame dialogueBox = new JFrame();
@@ -157,7 +156,7 @@ public class GUI extends JPanel
 
         outputBox.setVisible(true);
     }
-
+    //Adds ActionListener for button. ActionListener calls the searchRoom() function
     private void addActionSearchRoom(JButton button)
     {
         button.addActionListener(
@@ -171,7 +170,7 @@ public class GUI extends JPanel
                 }
                 );
     }
-
+    //Creates dialogue box for adding announcement
     private void addAnnouncement()
     {
         JFrame box = new JFrame();
@@ -185,7 +184,7 @@ public class GUI extends JPanel
             hotel.addAnnouncement(newData + "\n", dtf.format(now));
         }
     }
-
+    //Adds ActionListener for button. ActionListener calls the addAnnouncement() function
     private void addActionAddAnnouncement(JButton button, JTextArea textArea)
     {
         button.addActionListener(
@@ -201,7 +200,7 @@ public class GUI extends JPanel
                 }
                 );
     }
-
+    //Creates dialogue box for removing announcement
     private void removeAnnouncement()
     {
         JFrame box = new JFrame();
@@ -212,7 +211,7 @@ public class GUI extends JPanel
             hotel.removeAnnouncement(Integer.parseInt(newData) - 1);
         }
     }
-
+    //Adds ActionListener for button. ActionListener calls the removeAnnouncement() function
     private void addActionRemoveAnnouncement(JButton button, JTextArea textArea)
     {
         button.addActionListener(
@@ -228,7 +227,7 @@ public class GUI extends JPanel
                 }
                 );
     }
-
+    //Lists out all the announcements from the hotel announcements array.
     private void listAnnouncements(JTextArea textArea)
     {
         int loop = 0;
@@ -239,8 +238,7 @@ public class GUI extends JPanel
         }
     }
 
-    //FACILITY FUNCTIONS
-
+    //Generates the Facility panel
     private void createFacilityPanel(JPanel panel)
     {
         addFacilityNames(panel);
@@ -248,7 +246,7 @@ public class GUI extends JPanel
         addFacilityDesc(panel);
         addFacilityTime(panel);
     }
-
+    //Adds the names for the facilities to the JPanel. Receives the data from the hotel class.
     private void addFacilityNames(JPanel panel)
     {
         JLabel pool = new JLabel(hotel.getFacility(0).getName());
@@ -276,7 +274,8 @@ public class GUI extends JPanel
         lounge.setFont(new Font("Verdana", Font.PLAIN, 18));
         panel.add(lounge);
     }
-
+    //Adds the times for the facilities to the JPanel. Receives the data from the hotel class.
+    //Adds the buttons to change the corresponding facility times.
     private void addFacilityTime(JPanel panel)
     {
         JLabel poolTime = new JLabel(hotel.getFacility(0).getTime());
@@ -329,7 +328,8 @@ public class GUI extends JPanel
         addDialogueBoxTime(changeTimeLounge, 4, loungeTime);
         panel.add(changeTimeLounge);
     }
-
+    //Adds the availability for the facilities to the JPanel. Receives the data from the hotel class.
+    //Adds the buttons to change the corresponding facility availability.
     private void addFacilityAvailability(JPanel panel)
     {
         JLabel poolAvailability = new JLabel(availabilitySwap(hotel.getFacility(0).getAvailability()));
@@ -382,7 +382,7 @@ public class GUI extends JPanel
         addDialogueBoxAvailability(changeAvailabilityLounge, 0, loungeAvailability);
         panel.add(changeAvailabilityLounge);
     }
-
+    //Adds the descriptions for the facilities to the JPanel. Receives the data from the hotel class.
     private void addFacilityDesc(JPanel panel)
     {
         JLabel poolDesc = new JLabel(hotel.getFacility(0).getDescription());
@@ -410,13 +410,13 @@ public class GUI extends JPanel
         loungeDesc.setFont(new Font("Verdana", Font.PLAIN, 14));
         panel.add(loungeDesc);
     }
-
+    //Changes the availability of the given facility. Updates the JLabel to the new value.
     private void changeAvailability(int index, JLabel label)
     {
         hotel.getFacility(index).setAvailablity(!hotel.getFacility(index).getAvailability());
         label.setText(availabilitySwap(hotel.getFacility(index).getAvailability()));
     }
-
+    //Adds ActionListener for button. ActionListener calls the changeAvailability() function
     private void addDialogueBoxAvailability(JButton button, int index, JLabel label)
     {
         button.addActionListener(
@@ -430,7 +430,7 @@ public class GUI extends JPanel
                 }
                 );
     }
-
+    //Creates dialogue box for changing time. Changes the time of the given facility. Updates the JLabel to the new value.
     private void changeTime(int index, JLabel label)
     {
         JFrame box = new JFrame();
@@ -442,7 +442,7 @@ public class GUI extends JPanel
             label.setText(newData);
         }
     }
-
+    //Adds ActionListener for button. ActionListener calls the changeTime() function
     private void addDialogueBoxTime(JButton button, int index, JLabel label)
     {
         button.addActionListener(
@@ -456,7 +456,7 @@ public class GUI extends JPanel
                 }
                 );
     }
-
+    //Converts the boolean value for availability to it's corresponding string
     private String availabilitySwap(boolean bool)
     {
         String string = null;
@@ -473,8 +473,7 @@ public class GUI extends JPanel
         return string;
     }
 
-    //FLOOR FUNCTIONS
-
+    //Generates a Floor panel
     private void createFloorPanel(JPanel panel, int floor)
     {
         JLabel custName = new JLabel();
@@ -548,7 +547,7 @@ public class GUI extends JPanel
         addActionToggleCleaning(requestCleaning);
         panel.add(requestCleaning);
     }
-
+    //Changes the cleaning status of the given room.
     private void toggleCleaning()
     {
         JFrame box = new JFrame();
@@ -573,7 +572,7 @@ public class GUI extends JPanel
             }
         }
     }
-
+    //Adds ActionListener for button. ActionListener calls the toggleCleaning() function
     private void addActionToggleCleaning(JButton button)
     {
         button.addActionListener(
@@ -587,7 +586,7 @@ public class GUI extends JPanel
                 }
                 );
     }
-
+    //Sets the text on screen to the correct room data.
     private void updateRoomGUI(int floor, int room, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn, JLabel requiresCleaning)
     {
         if(hotel.getRoom(floor, room).isBooked() == true)
@@ -609,7 +608,7 @@ public class GUI extends JPanel
         }
 
     }
-
+    //Adds ActionListener for button. ActionListener calls the updateRoomGUI() function
     private void addActionRoomButton(JButton button, int floor, int room, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn, JLabel requiresCleaning)
     {
         button.addActionListener(
@@ -623,7 +622,7 @@ public class GUI extends JPanel
                 }
                 );
     }
-
+    //Creates dialogue box for making booking.
     private void makeBooking(JLabel custName, JLabel startDateLabel, JLabel endDateLabel, JLabel checkedIn, JLabel requiresCleaning)
     {
         JFrame box = new JFrame();
@@ -673,7 +672,7 @@ public class GUI extends JPanel
             updateRoomGUI(floorNum, roomNum, custName, startDateLabel, endDateLabel, checkedIn, requiresCleaning);
         }
     }
-
+    //Adds ActionListener for button. ActionListener calls the makeBooking() function
     private void addActionMakeBooking(JButton button, JLabel custName, JLabel startDate, JLabel endDate, JLabel checkedIn, JLabel requiresCleaning)
     {
         button.addActionListener(
@@ -687,7 +686,7 @@ public class GUI extends JPanel
                 }
                 );
     }
-
+    //Creates dialogue box for checking in/checking out.
     private void changeCheckIn()
     {
         JFrame box = new JFrame();
@@ -711,7 +710,7 @@ public class GUI extends JPanel
             }
         }
     }
-
+    //Adds ActionListener for button. ActionListener calls the changeCheckIn() function
     private void addActionCheckIn(JButton button)
     {
         button.addActionListener(
@@ -725,7 +724,7 @@ public class GUI extends JPanel
                 }
                 );
     }
-
+    //Converts the boolean value for check in/check out to it's corresponding string
     private String checkInBoolToString(boolean bool)
     {
         String string = null;
@@ -741,7 +740,7 @@ public class GUI extends JPanel
 
         return string;
     }
-
+    //Converts the boolean value for cleaning status to it's corresponding string
     private String cleaningBoolToString(boolean bool)
     {
         String string = null;
@@ -757,7 +756,7 @@ public class GUI extends JPanel
 
         return string;
     }
-
+    //Converts the given date to a string
     private String dateToString(Date date)
     {
         String month = (new DateFormatSymbols().getMonths()[date.getMonth() - 1]);
@@ -766,7 +765,7 @@ public class GUI extends JPanel
 
         return month + " " + day + " " + year;
     }
-
+    //Creates and shows the frame for the GUI
     public static void createAndShowGUI()
     {
         //Create and set up the window.
